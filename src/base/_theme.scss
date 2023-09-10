@@ -1,0 +1,45 @@
+@use "./breakpoints" as b;
+
+body {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top center;
+
+  @media screen and (width > b.$mobile) {
+    background-image: url("/images/bg-desktop-light.jpg");
+
+    @media (prefers-color-scheme: dark) {
+      background-image: url("/images/bg-desktop-dark.jpg");
+    }
+  }
+
+  @media screen and (width <= b.$mobile) {
+    background-image: url("/images/bg-mobile-light.jpg");
+
+    @media (prefers-color-scheme: dark) {
+      background-image: url("/images/bg-mobile-dark.jpg");
+    }
+  }
+
+  // Light Theme
+  &[data-theme="light"] {
+    @media screen and (width > b.$mobile) {
+      background-image: url("/images/bg-desktop-light.jpg");
+    }
+
+    @media screen and (width <= b.$mobile) {
+      background-image: url("/images/bg-mobile-light.jpg");
+    }
+  }
+
+  // Dark Theme
+  &[data-theme="dark"] {
+    @media screen and (width > b.$mobile) {
+      background-image: url("/images/bg-desktop-dark.jpg");
+    }
+
+    @media screen and (width <= b.$mobile) {
+      background-image: url("/images/bg-mobile-dark.jpg");
+    }
+  }
+}

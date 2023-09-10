@@ -1,3 +1,11 @@
+import Header from "./layout/Header/Header";
+import Main from "./layout/Main/Main";
+
 export default function App() {
-  return <div>App</div>;
+  return (
+    <>
+      <Header />
+      <Main />
+    </>
+  );
 }

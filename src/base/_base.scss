@@ -69,8 +69,14 @@ a:hover {
 img,
 svg {
   display: block;
-  user-select: none;
   -webkit-user-select: none;
+  user-select: none;
+}
+
+button {
+  padding: 0;
+  border: none;
+  cursor: pointer;
 }
 
 abbr[title] {
