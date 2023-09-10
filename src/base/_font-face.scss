@@ -1,0 +1,29 @@
+@font-face {
+  font-family: "Josefin Sans";
+  font-weight: normal;
+  src: url("./assets/fonts/josefinsans-regular-webfont.woff2") format("woff2"),
+    url("./assets/fonts/josefinsans-regular-webfont.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Josefin Sans";
+  font-weight: normal;
+  font-style: italic;
+  src: url("./assets/fonts/josefinsans-italic-webfont.woff2") format("woff2"),
+    url("./assets/fonts/josefinsans-italic-webfont.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Josefin Sans";
+  font-weight: bold;
+  src: url("./assets/fonts/josefinsans-bold-webfont.woff2") format("woff2"),
+    url("./assets/fonts/josefinsans-bold-webfont.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Josefin Sans";
+  font-weight: bold;
+  font-style: italic;
+  src: url("./assets/fonts/josefinsans-bolditalic-webfont.woff2") format("woff2"),
+    url("./assets/fonts/josefinsans-bolditalic-webfont.woff") format("woff");
+}
