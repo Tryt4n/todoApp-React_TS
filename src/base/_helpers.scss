@@ -1,3 +1,8 @@
+@use "../abstracts/mixins" as *;
+@use "../abstracts/variables" as v;
+@use "../abstracts/colors" as c;
+@use "./breakpoints" as b;
+
 .visually-hidden {
   position: absolute !important;
   clip: rect(1px 1px 1px 1px);
@@ -6,4 +11,29 @@
   height: 1px !important;
   width: 1px !important;
   overflow: hidden;
+}
+
+.container {
+  margin-inline: auto;
+  // @media screen and (width > b.$mobile) {
+  // max-width: 1000px;
+  width: min(1000px, 90dvw);
+  // }
+  // @media screen and (width <= b.$mobile) {
+  // max-width: 90dvw;
+  // }
+}
+
+.flex-wrapper {
+  @include flex(row, flex-start, center);
+  gap: 1em;
+}
+
+.task-wrapper {
+  background-color: c.$very-light-gray-LIGHT_THEME;
+  border-radius: v.$border-radius;
+
+  & input {
+    font: inherit;
+  }
 }

@@ -1,0 +1,26 @@
+@use "../../abstracts/mixins" as *;
+@use "../../abstracts/variables" as v;
+@use "../../base/breakpoints" as b;
+
+.todo-header {
+  margin-top: calc(v.$elements-spacing * 2);
+  @include flex(row, space-between, center);
+
+  & > h1 {
+    font-size: 2em;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+
+  & > button {
+    transition: v.$main-transition;
+
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+
+  @media screen and (width > b.$mobile) {
+    margin-top: calc(v.$elements-spacing * 4);
+  }
+}

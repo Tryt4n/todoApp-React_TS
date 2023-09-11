@@ -1,0 +1,62 @@
+@use "../../abstracts/mixins" as *;
+@use "../../abstracts/colors" as c;
+@use "../../abstracts/variables" as v;
+
+.typing-field-wrapper {
+  margin-top: calc(v.$elements-spacing * 2);
+  padding: v.$elements-spacing;
+
+  & input {
+    background-color: inherit;
+    color: c.$very-dark-grayish-blue-LIGHT_THEME;
+    caret-color: c.$bright-blue;
+
+    &::placeholder {
+      color: c.$dark-grayish-blue-LIGHT_THEME;
+    }
+    &:focus::placeholder {
+      color: transparent;
+    }
+  }
+
+  &__text-input-wrapper {
+    flex-grow: 1;
+
+    & > input {
+      width: 100%;
+    }
+  }
+
+  .new-todo-input-text {
+    border: none;
+    outline: none;
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
+}
+
+.list-last-element {
+  padding: 1em;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+
+  @include flex(row, space-between, center);
+  gap: v.$elements-spacing;
+  color: c.$dark-grayish-blue-LIGHT_THEME;
+
+  & button {
+    transition: v.$main-transition;
+  }
+
+  & button:hover {
+    color: c.$very-dark-grayish-blue-LIGHT_THEME;
+  }
+}
+
+.reorder-text {
+  margin-block-start: calc(v.$elements-spacing * 3);
+  margin-block-end: calc(v.$elements-spacing * 2);
+  text-align: center;
+  color: c.$dark-grayish-blue-LIGHT_THEME;
+}

@@ -1,0 +1,7 @@
+@use "../../abstracts/variables" as v;
+
+.todo-list {
+  margin-top: v.$elements-spacing;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}

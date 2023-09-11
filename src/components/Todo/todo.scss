@@ -1,0 +1,39 @@
+@use "../../abstracts/mixins" as *;
+@use "../../abstracts/variables" as v;
+@use "../../abstracts/colors" as c;
+@use "../../base/functions" as func;
+@use "../../base/breakpoints" as b;
+
+.todo-wrapper {
+  padding: v.$elements-spacing;
+  @include flex(row, space-between, center);
+  gap: v.$elements-spacing;
+  border-bottom: func.rem(1) solid c.$light-grayish-blue-LIGHT_THEME;
+  cursor: all-scroll;
+
+  & > .flex-wrapper,
+  & > .flex-wrapper > label {
+    flex-grow: 1;
+  }
+
+  & button {
+    transition: v.$main-transition;
+  }
+
+  @media screen and (width <= b.$mobile) {
+    & button {
+      color: c.$very-dark-grayish-blue-LIGHT_THEME;
+
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+  }
+
+  @media screen and (width > b.$mobile) {
+    color: transparent;
+    &:where(:hover, :focus-within) button {
+      color: c.$very-dark-grayish-blue-LIGHT_THEME;
+    }
+  }
+}

@@ -1,0 +1,49 @@
+@use "../../abstracts/mixins" as *;
+@use "../../abstracts/colors" as c;
+@use "../../abstracts/variables" as v;
+@use "../../base/functions" as func;
+
+.todo-input-checkbox {
+  position: relative;
+  appearance: none;
+  width: v.$checkbox-size;
+  height: v.$checkbox-size;
+  cursor: pointer;
+  flex-shrink: 0;
+
+  &::before {
+    position: absolute;
+    content: "\2713";
+    inset: 0;
+    background: transparent;
+    border: func.rem(1) solid c.$light-grayish-blue-LIGHT_THEME;
+    border-radius: 50%;
+    color: transparent;
+    text-indent: 0.25em;
+    transition: v.$main-transition;
+  }
+  &:hover:not(:checked):before {
+    border-color: c.$very-dark-grayish-blue-LIGHT_THEME;
+  }
+
+  &:checked::before {
+    background: c.$check-background;
+    color: c.$very-light-gray-LIGHT_THEME;
+  }
+
+  & + label {
+    position: relative;
+    color: c.$very-dark-grayish-blue-LIGHT_THEME;
+    cursor: pointer;
+    transition: v.$main-transition;
+
+    &::first-letter {
+      text-transform: capitalize;
+    }
+  }
+
+  &:checked + label {
+    color: c.$dark-grayish-blue-LIGHT_THEME;
+    text-decoration: line-through;
+  }
+}

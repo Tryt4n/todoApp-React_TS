@@ -18,19 +18,15 @@ export default function Header() {
   }
 
   return (
-    <header>
-      <h1>TODO</h1>
+    <header className="container todo-header">
+      <h1>Todo</h1>
       <button
         type="button"
-        aria-describedby="themeBtnDescription"
+        aria-label={
+          themeMode === "light" ? "Switch to Dark Mode Theme" : "Switch to Light Mode Theme"
+        }
         onClick={() => changeTheme()}
       >
-        <span
-          id="themeBtnDescription"
-          className="visually-hidden"
-        >
-          {themeMode === "light" ? "Switch to Dark Mode Theme" : "Switch to Light Mode Theme"}
-        </span>
         {themeMode === "light" ? <IconMoon /> : <IconSun />}
       </button>
     </header>

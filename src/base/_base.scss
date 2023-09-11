@@ -31,18 +31,14 @@ html::-webkit-scrollbar-thumb:hover {
 
 body,
 h1,
-h2,
-h3,
 p,
 ul,
-ol,
 input,
 fieldset {
   margin: 0;
 }
 
-ul,
-ol {
+ul {
   padding: 0;
   list-style: none;
 }
@@ -56,17 +52,6 @@ fieldset {
   border: 0;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-  outline-offset: 0.25em;
-}
-
-a:hover {
-  text-underline-offset: 0.25em;
-}
-
-img,
 svg {
   display: block;
   -webkit-user-select: none;
@@ -76,35 +61,18 @@ svg {
 button {
   padding: 0;
   border: none;
+  background: transparent;
+  font: inherit;
+  color: inherit;
   cursor: pointer;
 }
 
-abbr[title] {
+button,
+input,
+a {
+  outline-offset: 0.25em;
+}
+
+a {
   text-decoration: none;
-}
-
-/* clears the ‘X’ from Internet Explorer */
-input[type="search"]::-ms-clear {
-  display: none;
-  width: 0;
-  height: 0;
-}
-input[type="search"]::-ms-reveal {
-  display: none;
-  width: 0;
-  height: 0;
-}
-/* clears the ‘X’ from Chrome */
-input[type="search"]::-webkit-search-decoration,
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-results-button,
-input[type="search"]::-webkit-search-results-decoration {
-  display: none;
-}
-
-/* autocomplete background color and font color doesn't change */
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus {
-  transition: all 1000s;
 }

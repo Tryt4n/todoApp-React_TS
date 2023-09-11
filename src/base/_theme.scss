@@ -1,7 +1,8 @@
 @use "./breakpoints" as b;
+@use "../abstracts/colors" as c;
 
 body {
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
   background-position: top center;
 
@@ -21,8 +22,18 @@ body {
     }
   }
 
+  @media (prefers-color-scheme: light) {
+    background-color: c.$very-light-grayish-blue-LIGHT_THEME;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: c.$very-dark-blue-DARK_THEME;
+  }
+
   // Light Theme
   &[data-theme="light"] {
+    background-color: c.$very-light-grayish-blue-LIGHT_THEME;
+
     @media screen and (width > b.$mobile) {
       background-image: url("/images/bg-desktop-light.jpg");
     }
@@ -34,6 +45,8 @@ body {
 
   // Dark Theme
   &[data-theme="dark"] {
+    background-color: c.$very-dark-blue-DARK_THEME;
+
     @media screen and (width > b.$mobile) {
       background-image: url("/images/bg-desktop-dark.jpg");
     }
