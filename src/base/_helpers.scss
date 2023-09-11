@@ -15,13 +15,7 @@
 
 .container {
   margin-inline: auto;
-  // @media screen and (width > b.$mobile) {
-  // max-width: 1000px;
   width: min(1000px, 90dvw);
-  // }
-  // @media screen and (width <= b.$mobile) {
-  // max-width: 90dvw;
-  // }
 }
 
 .flex-wrapper {
@@ -30,8 +24,9 @@
 }
 
 .task-wrapper {
-  background-color: c.$very-light-gray-LIGHT_THEME;
+  background-color: var(--background-task-color);
   border-radius: v.$border-radius;
+  transition: v.$main-transition;
 
   & input {
     font: inherit;

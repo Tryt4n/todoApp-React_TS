@@ -10,20 +10,25 @@
   height: v.$checkbox-size;
   cursor: pointer;
   flex-shrink: 0;
+  isolation: isolate;
+  z-index: 0;
+  transition: v.$main-transition;
 
   &::before {
     position: absolute;
     content: "\2713";
     inset: 0;
-    background: transparent;
-    border: func.rem(1) solid c.$light-grayish-blue-LIGHT_THEME;
+    background: var(--background-task-color);
+    border: func.rem(1) solid var(--border-color);
     border-radius: 50%;
     color: transparent;
-    text-indent: 0.25em;
+    text-indent: calc(0.25em + func.em(1));
     transition: v.$main-transition;
+    z-index: 1;
   }
-  &:hover:not(:checked):before {
-    border-color: c.$very-dark-grayish-blue-LIGHT_THEME;
+
+  &:where(:hover, :focus-visible):not(:checked):before {
+    border-color: transparent;
   }
 
   &:checked::before {
@@ -31,9 +36,29 @@
     color: c.$very-light-gray-LIGHT_THEME;
   }
 
+  &::after {
+    position: absolute;
+    content: "";
+    width: calc(100% + func.em(2));
+    height: calc(100% + func.em(2));
+    translate: func.em(-1) func.em(-1);
+    background: var(--background-task-color);
+    border-radius: 50%;
+    transition: v.$main-transition;
+    z-index: -1;
+  }
+
+  &:where(:hover, :focus-visible):not(:checked)::after {
+    background: c.$check-background;
+  }
+
+  &:checked::after {
+    background: initial;
+  }
+
   & + label {
     position: relative;
-    color: c.$very-dark-grayish-blue-LIGHT_THEME;
+    color: var(--text-task-color);
     cursor: pointer;
     transition: v.$main-transition;
 
@@ -43,7 +68,7 @@
   }
 
   &:checked + label {
-    color: c.$dark-grayish-blue-LIGHT_THEME;
+    color: var(--text-task-complete-color);
     text-decoration: line-through;
   }
 }

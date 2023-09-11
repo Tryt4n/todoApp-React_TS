@@ -1,10 +1,107 @@
-@use "./breakpoints" as b;
 @use "../abstracts/colors" as c;
+@use "../abstracts/variables" as v;
+@use "./breakpoints" as b;
+
+:root {
+  // Background
+  --background_LIGHT: hsl(236, 33%, 92%);
+  --background_DARK: hsl(235, 21%, 11%);
+
+  // Task Field
+  --background-task_LIGHT: hsl(0, 0%, 98%);
+  --background-task_DARK: hsl(235, 24%, 19%);
+
+  // Task Text Color
+  --text-task_LIGHT: hsl(235, 19%, 35%);
+  --text-task_DARK: hsl(234, 39%, 85%);
+
+  // Task Complete & Placeholder Color
+  --text-task-complete_LIGHT: hsl(233, 11%, 84%);
+  --text-task-complete_DARK: hsl(233, 14%, 35%);
+
+  // Text for items left & button `Clear Completed` & drag and drop text
+  --informative-text_LIGHT: hsl(236, 9%, 61%);
+  --informative-text_DARK: hsl(233, 14%, 35%);
+
+  // Border between tasks
+  --border-color_LIGHT: hsl(233, 11%, 84%);
+  --border-color_DARK: hsl(237, 14%, 26%);
+
+  // `Clear Completed` on :hover
+  --btn-light-hover_LIGHT: hsl(233, 14%, 35%);
+  --btn-light-hover_DARK: hsl(234, 39%, 85%);
+
+  // Delete Task button
+  --delete-btn_LIGHT: hsl(235, 19%, 35%);
+  --delete-btn_DARK: hsl(233, 14%, 35%);
+
+  // Links color
+  --link-default_LIGHT: hsl(236, 9%, 61%);
+  --link-default_DARK: hsl(233, 14%, 35%);
+  --link-hover_LIGHT: hsl(235, 19%, 35%);
+  --link-hover_DARK: hsl(236, 33%, 92%);
+
+  @media (prefers-color-scheme: light) {
+    --background: var(--background_LIGHT);
+    --background-task-color: var(--background-task_LIGHT);
+    --text-task-color: var(--text-task_LIGHT);
+    --text-task-complete-color: var(--text-task-complete_LIGHT);
+    --informative-text: var(--informative-text_LIGHT);
+    --border-color: var(--border-color_LIGHT);
+    --btn-light-hover: var(--btn-light-hover_LIGHT);
+    --delete-btn: var(--delete-btn_LIGHT);
+    --link-default: var(--link-default_LIGHT);
+    --link-hover: var(--link-hover_LIGHT);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    --background: var(--background_DARK);
+    --background-task-color: var(--background-task_DARK);
+    --text-task-color: var(--text-task_DARK);
+    --text-task-complete-color: var(--text-task-complete_DARK);
+    --informative-text: var(--informative-text_DARK);
+    --border-color: var(--border-color_DARK);
+    --btn-light-hover: var(--btn-light-hover_DARK);
+    --delete-btn: var(--delete-btn_DARK);
+    --link-default: var(--link-default_DARK);
+    --link-hover: var(--link-hover_DARK);
+  }
+}
+
+html {
+  &[data-theme="light"] {
+    --background: var(--background_LIGHT);
+    --background-task-color: var(--background-task_LIGHT);
+    --text-task-color: var(--text-task_LIGHT);
+    --text-task-complete-color: var(--text-task-complete_LIGHT);
+    --informative-text: var(--informative-text_LIGHT);
+    --border-color: var(--border-color_LIGHT);
+    --btn-light-hover: var(--btn-light-hover_LIGHT);
+    --delete-btn: var(--delete-btn_LIGHT);
+    --link-default: var(--link-default_LIGHT);
+    --link-hover: var(--link-hover_LIGHT);
+  }
+
+  &[data-theme="dark"] {
+    --background: var(--background_DARK);
+    --background-task-color: var(--background-task_DARK);
+    --text-task-color: var(--text-task_DARK);
+    --text-task-complete-color: var(--text-task-complete_DARK);
+    --informative-text: var(--informative-text_DARK);
+    --border-color: var(--border-color_DARK);
+    --btn-light-hover: var(--btn-light-hover_DARK);
+    --delete-btn: var(--delete-btn_DARK);
+    --link-default: var(--link-default_DARK);
+    --link-hover: var(--link-hover_DARK);
+  }
+}
 
 body {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: top center;
+  background-color: var(--background);
+  transition: v.$main-transition;
 
   @media screen and (width > b.$mobile) {
     background-image: url("/images/bg-desktop-light.jpg");
@@ -22,18 +119,8 @@ body {
     }
   }
 
-  @media (prefers-color-scheme: light) {
-    background-color: c.$very-light-grayish-blue-LIGHT_THEME;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    background-color: c.$very-dark-blue-DARK_THEME;
-  }
-
   // Light Theme
   &[data-theme="light"] {
-    background-color: c.$very-light-grayish-blue-LIGHT_THEME;
-
     @media screen and (width > b.$mobile) {
       background-image: url("/images/bg-desktop-light.jpg");
     }
@@ -45,8 +132,6 @@ body {
 
   // Dark Theme
   &[data-theme="dark"] {
-    background-color: c.$very-dark-blue-DARK_THEME;
-
     @media screen and (width > b.$mobile) {
       background-image: url("/images/bg-desktop-dark.jpg");
     }

@@ -1,5 +1,6 @@
 @use "../../abstracts/mixins" as *;
 @use "../../abstracts/variables" as v;
+@use "../../abstracts/colors" as c;
 @use "../../base/breakpoints" as b;
 
 .todo-header {
@@ -10,6 +11,7 @@
     font-size: 2em;
     letter-spacing: 0.3em;
     text-transform: uppercase;
+    color: c.$very-light-gray-LIGHT_THEME;
   }
 
   & > button {

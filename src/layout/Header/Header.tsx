@@ -14,7 +14,7 @@ export default function Header() {
     } else {
       setThemeMode("light");
     }
-    document.body.setAttribute("data-theme", themeMode);
+    document.documentElement.setAttribute("data-theme", themeMode);
   }
 
   return (
