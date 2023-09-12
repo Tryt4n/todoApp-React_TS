@@ -9,9 +9,13 @@
 
   & > h1 {
     font-size: 2em;
+    line-height: 1;
     letter-spacing: 0.3em;
     text-transform: uppercase;
     color: c.$very-light-gray-LIGHT_THEME;
+    @media screen and (width > b.$mobile) {
+      font-size: clamp(2.25rem, calc(-1.47rem + 7.76vw), 3.38rem);
+    }
   }
 
   & > button {

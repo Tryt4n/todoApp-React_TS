@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import IconMoon from "../../Icons/IconMoon";
 import IconSun from "../../Icons/IconSun";
@@ -6,15 +6,29 @@ import IconSun from "../../Icons/IconSun";
 import "./header.scss";
 
 export default function Header() {
-  const [themeMode, setThemeMode] = useState("light");
+  const [theme, setTheme] = useState(localStorage.getItem("theme"));
 
-  function changeTheme() {
-    if (themeMode === "light") {
-      setThemeMode("dark");
+  useEffect(() => {
+    const prefferedTheme = window.matchMedia("(prefers-color-scheme: light)").matches
+      ? "light"
+      : "dark";
+    const storedTheme = localStorage.getItem("theme");
+
+    if (!storedTheme) {
+      localStorage.setItem("theme", prefferedTheme);
     } else {
-      setThemeMode("light");
+      setTheme(storedTheme);
     }
-    document.documentElement.setAttribute("data-theme", themeMode);
+
+    // document.documentElement.setAttribute("data-theme", theme);
+    if (theme == null) return;
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
+
+  function toggleTheme() {
+    const newTheme = theme === "light" ? "dark" : "light";
+    localStorage.setItem("theme", newTheme);
+    setTheme(newTheme);
   }
 
   return (
@@ -22,12 +36,10 @@ export default function Header() {
       <h1>Todo</h1>
       <button
         type="button"
-        aria-label={
-          themeMode === "light" ? "Switch to Dark Mode Theme" : "Switch to Light Mode Theme"
-        }
-        onClick={() => changeTheme()}
+        aria-label={theme === "light" ? "Switch to Dark Mode Theme" : "Switch to Light Mode Theme"}
+        onClick={toggleTheme}
       >
-        {themeMode === "light" ? <IconMoon /> : <IconSun />}
+        {theme === "light" ? <IconMoon /> : <IconSun />}
       </button>
     </header>
   );

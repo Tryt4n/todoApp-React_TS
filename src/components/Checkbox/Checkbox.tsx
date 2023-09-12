@@ -22,7 +22,7 @@ export default function Checkbox({ labelText, labelHidden, checkedStatus }: Chec
       />
       <label
         htmlFor={`checkbox-${id}`}
-        className={`todo-input-label${labelHidden ? " visually-hidden" : ""}`}
+        className={labelHidden ? " visually-hidden" : ""}
       >
         {labelText}
       </label>

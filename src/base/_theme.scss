@@ -96,12 +96,12 @@ html {
   }
 }
 
-body {
+html {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: top center;
   background-color: var(--background);
-  transition: v.$main-transition;
+  transition: background-color 300ms ease-in-out;
 
   @media screen and (width > b.$mobile) {
     background-image: url("/images/bg-desktop-light.jpg");

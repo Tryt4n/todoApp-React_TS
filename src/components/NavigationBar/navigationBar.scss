@@ -12,7 +12,7 @@
   & a {
     color: inherit;
     line-height: 1;
-    transition: color v.$main-transition;
+    transition: v.$main-transition;
 
     &:where(:hover, :focus-visible) {
       color: var(--link-hover);
@@ -21,7 +21,7 @@
 
   & .active {
     color: c.$bright-blue;
-    cursor: not-allowed;
+    cursor: default;
   }
 
   @media screen and (width <= b.$mobile) {

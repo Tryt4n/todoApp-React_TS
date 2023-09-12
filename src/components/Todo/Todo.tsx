@@ -5,7 +5,10 @@ import "./todo.scss";
 
 export default function Todo() {
   return (
-    <li className="todo-wrapper">
+    <li
+      className="todo-wrapper"
+      draggable
+    >
       <Checkbox labelText="complete online JavaScript course" />
       <button
         type="button"
