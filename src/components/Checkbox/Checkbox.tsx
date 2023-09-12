@@ -2,13 +2,10 @@ import { useId } from "react";
 
 import "./checkbox.scss";
 
-interface CheckboxProps {
-  labelText: string;
-  labelHidden?: boolean;
-  checkedStatus?: boolean;
-}
+// Types
+import { ACTIONS_TYPE } from "../../types/Actions";
 
-export default function Checkbox({ labelText, labelHidden, checkedStatus }: CheckboxProps) {
+export default function Checkbox({ todo, dispatch }) {
   const id = useId();
 
   return (
@@ -18,13 +15,15 @@ export default function Checkbox({ labelText, labelHidden, checkedStatus }: Chec
         name={`checkbox-${id}`}
         id={`checkbox-${id}`}
         className="todo-input-checkbox"
-        checked={checkedStatus ? checkedStatus : undefined}
+        checked={todo?.complete}
+        onChange={() => dispatch({ type: ACTIONS_TYPE.TOGGLE_TODO, payload: { id: todo.id } })}
       />
       <label
         htmlFor={`checkbox-${id}`}
-        className={labelHidden ? " visually-hidden" : ""}
+        // className={labelHidden ? "visually-hidden" : ""}
+        className="todo-checkbox-label"
       >
-        {labelText}
+        {todo ? todo.name : "Check status for new todo"}
       </label>
     </div>
   );

@@ -3,21 +3,27 @@ import IconCross from "../../Icons/IconCross";
 
 import "./todo.scss";
 
-type textType = {
-  text: string;
+//Types
+import { TodoType } from "../../types/Todos";
+import { ACTIONS_TYPE } from "../../types/Actions";
+type propType = {
+  todo: TodoType;
 };
 
-export default function Todo({ text }: textType) {
+export default function Todo({ todo, dispatch }: propType) {
   return (
     <li
       className="todo-wrapper"
       draggable
     >
-      {/* <Checkbox labelText="complete online JavaScript course" /> */}
-      <Checkbox labelText={text} />
+      <Checkbox
+        todo={todo}
+        dispatch={dispatch}
+      />
       <button
         type="button"
         aria-label="Delete this task"
+        onClick={() => dispatch({ type: ACTIONS_TYPE.DELETE_TODO, payload: { id: todo.id } })}
       >
         <IconCross />
       </button>

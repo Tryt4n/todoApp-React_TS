@@ -20,7 +20,6 @@ export default function Header() {
       setTheme(storedTheme);
     }
 
-    // document.documentElement.setAttribute("data-theme", theme);
     if (theme == null) return;
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
