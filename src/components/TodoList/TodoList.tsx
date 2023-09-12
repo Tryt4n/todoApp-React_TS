@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useId, useState } from "react";
+import React, { ReactElement, useId, useState } from "react";
 import { ReactSortable } from "react-sortablejs";
 
 import Todo from "../Todo/Todo";

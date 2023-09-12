@@ -3,7 +3,11 @@ import IconCross from "../../Icons/IconCross";
 
 import "./todo.scss";
 
-export default function Todo({ text }) {
+type textType = {
+  text: string;
+};
+
+export default function Todo({ text }: textType) {
   return (
     <li
       className="todo-wrapper"
