@@ -1,7 +1,58 @@
 @use "../../abstracts/variables" as v;
+@use "../../base/functions" as func;
+@use "../../base/breakpoints" as b;
+
+.todo-list-wrapper {
+  display: grid;
+  grid-template-rows: 0fr;
+  animation: todoListExpand v.$todoList-animation-time ease-in forwards;
+}
 
 .todo-list {
   margin-top: v.$elements-spacing;
   border-bottom-left-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
+  overflow: hidden;
+  max-height: 52.5dvh;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  scroll-margin-block: auto;
+  scrollbar-width: thin;
+  scrollbar-color: hsl(0, 0%, 60%) transparent;
+  @media screen and (width <= b.$mobile) and (height < func.em(700)) {
+    max-height: 45dvh;
+  }
+  @media screen and (width <= b.$mobile) and (height < func.em(600)) {
+    max-height: 40dvh;
+  }
+  @media screen and (width <= b.$mobile) and (height < func.em(530)) {
+    max-height: 35dvh;
+  }
+  @media screen and (width <= b.$mobile) and (height < func.em(500)) {
+    max-height: 30dvh;
+  }
+}
+.todo-list::-webkit-scrollbar {
+  width: 0.75em;
+  height: 0.75em;
+}
+.todo-list::-webkit-scrollbar-track {
+  background-color: transparent;
+  border-radius: 100vw;
+}
+.todo-list::-webkit-scrollbar-thumb {
+  background-color: hsl(0, 0%, 60%);
+  border-radius: 100vw;
+}
+.todo-list::-webkit-scrollbar-track:hover {
+  background-color: hsl(0, 0%, 60%, 0.25);
+}
+.todo-list::-webkit-scrollbar-thumb:hover {
+  background-color: hsl(0, 0%, 50%);
+}
+
+@keyframes todoListExpand {
+  100% {
+    grid-template-rows: 1fr;
+  }
 }

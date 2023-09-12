@@ -1,6 +1,8 @@
 @use "../../abstracts/mixins" as *;
 @use "../../abstracts/colors" as c;
 @use "../../abstracts/variables" as v;
+@use "../../base/functions" as func;
+@use "../../base/breakpoints" as b;
 
 .typing-field-wrapper {
   margin-top: calc(v.$elements-spacing * 2);
@@ -37,14 +39,18 @@
   }
 }
 
-.list-last-element {
+.list-summary {
   padding: 1em;
-  border-top-left-radius: 0 !important;
-  border-top-right-radius: 0 !important;
-
   @include flex(row, space-between, center);
   gap: v.$elements-spacing;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  border-top: func.rem(1) solid var(--border-color);
   color: var(--informative-text);
+  opacity: 0;
+  visibility: hidden;
+  animation: listSummaryShow v.$todoSummary-animation-time ease-in v.$todoList-animation-time
+    forwards;
 
   & button {
     transition: v.$main-transition;
@@ -60,4 +66,22 @@
   margin-block-end: calc(v.$elements-spacing * 2);
   text-align: center;
   color: var(--informative-text);
+  opacity: 0;
+  visibility: hidden;
+  animation: listSummaryShow v.$todoSummary-animation-time ease-in
+    calc(v.$todoList-animation-time + v.$todoSummary-animation-time) forwards;
+
+  @media screen and (width <= b.$mobile) {
+    margin-block-start: calc(v.$elements-spacing * 2);
+  }
+  @media screen and (width < func.em(550)) {
+    margin-block-start: calc(v.$elements-spacing);
+  }
+}
+
+@keyframes listSummaryShow {
+  to {
+    opacity: 1;
+    visibility: visible;
+  }
 }

@@ -1,10 +1,14 @@
 @forward "./font-face";
 
 @use "./functions" as func;
+@use "./breakpoints" as b;
 
 body {
   font-family: "Josefin Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-size: func.rem(18);
   font-weight: normal;
+  @media screen and (width <= b.$mobile) {
+    font-size: initial;
+  }
 }

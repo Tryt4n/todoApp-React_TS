@@ -11,6 +11,10 @@
   cursor: all-scroll;
   transition: v.$main-transition;
 
+  &:last-of-type {
+    border-bottom: none;
+  }
+
   & button {
     transition: v.$main-transition;
     padding: 0.25em;

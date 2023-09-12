@@ -46,7 +46,8 @@ export default function Main() {
           <TodoList />
         </fieldset>
       </form>
-      <section className="task-wrapper list-last-element">
+
+      <section className="task-wrapper list-summary">
         <span>5 items left</span>
         {width > 768 && <NavigationBar />}
         <button type="button">Clear Completed</button>
