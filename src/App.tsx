@@ -1,11 +1,11 @@
-import Header from "./layout/Header/Header";
-import Main from "./layout/Main/Main";
+import HeaderSection from "./layout/Header/HeaderSection";
+import MainSection from "./layout/Main/MainSection";
 
 export default function App() {
   return (
     <>
-      <Header />
-      <Main />
+      <HeaderSection />
+      <MainSection />
     </>
   );
 }

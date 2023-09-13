@@ -1,23 +1,25 @@
+// Hooks
+import { useTodos } from "../../hooks/useTodos";
 // import React, { ReactElement, useId, useState } from "react";
 // import { ReactSortable } from "react-sortablejs";
 
+// Components
 import Todo from "../Todo/Todo";
 
-import "./todoList.scss";
-
 // Types
-import { TodoType, TodosListType } from "../../types/Todos";
+// import { TodoType, TodosListType } from "../../types/Todos";
+import { TodoType } from "../../types/TodosTypes";
+
+// Styles
+import "./todoList.scss";
 
 // interface ItemType {
 //   id: string;
 //   component: ReactElement;
 // }
-type TodoListPropsType = {
-  todos: TodosListType;
-  // dispatch: () => void;
-};
 
-export default function TodoList({ todos, dispatch }: TodoListPropsType) {
+export default function TodoList() {
+  const { todos } = useTodos();
   // const id = useId();
   // const [state, setState] = useState<ItemType[]>([
   //   {
@@ -90,7 +92,6 @@ export default function TodoList({ todos, dispatch }: TodoListPropsType) {
           <Todo
             key={todo.id}
             todo={todo}
-            dispatch={dispatch}
           ></Todo>
         ))}
       </ul>

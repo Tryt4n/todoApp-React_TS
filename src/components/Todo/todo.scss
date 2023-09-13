@@ -10,6 +10,9 @@
   border-bottom: func.rem(1) solid var(--border-color);
   cursor: all-scroll;
   transition: v.$main-transition;
+  opacity: 0;
+  visibility: hidden;
+  animation: showNewTodo v.$todoList-animation-time ease-in forwards;
 
   &:last-of-type {
     border-bottom: none;
@@ -18,6 +21,10 @@
   & button {
     transition: v.$main-transition;
     padding: 0.25em;
+  }
+
+  & label {
+    padding-left: v.$elements-spacing;
   }
 
   @media screen and (width <= b.$mobile) {
@@ -35,5 +42,15 @@
     &:where(:hover, :focus-within) button {
       color: var(--delete-btn);
     }
+  }
+}
+
+@keyframes showNewTodo {
+  from {
+    visibility: visible;
+  }
+  to {
+    opacity: 1;
+    visibility: visible;
   }
 }

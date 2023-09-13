@@ -1,25 +1,26 @@
+// Hooks
+import { useTodos } from "../../hooks/useTodos";
+
+// Components
 import Checkbox from "../Checkbox/Checkbox";
 import IconCross from "../../Icons/IconCross";
 
+//Types
+import { TodoPropType } from "../../types/TodosTypes";
+import { ACTIONS_TYPE } from "../../types/ActionsTypes";
+
+// Styles
 import "./todo.scss";
 
-//Types
-import { TodoType } from "../../types/Todos";
-import { ACTIONS_TYPE } from "../../types/Actions";
-type propType = {
-  todo: TodoType;
-};
+export default function Todo({ todo }: TodoPropType) {
+  const { dispatch } = useTodos();
 
-export default function Todo({ todo, dispatch }: propType) {
   return (
     <li
       className="todo-wrapper"
       draggable
     >
-      <Checkbox
-        todo={todo}
-        dispatch={dispatch}
-      />
+      <Checkbox todo={todo} />
       <button
         type="button"
         aria-label="Delete this task"

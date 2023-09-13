@@ -1,3 +1,4 @@
+// Styles
 import "./navigationBar.scss";
 
 export default function NavigationBar() {

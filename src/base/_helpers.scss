@@ -20,7 +20,6 @@
 
 .flex-wrapper {
   @include flex(row, flex-start, center);
-  gap: 1em;
 }
 
 .task-wrapper {

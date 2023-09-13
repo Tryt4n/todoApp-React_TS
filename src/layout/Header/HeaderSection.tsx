@@ -1,11 +1,14 @@
+// Hooks
 import { useEffect, useState } from "react";
 
+// Components
 import IconMoon from "../../Icons/IconMoon";
 import IconSun from "../../Icons/IconSun";
 
-import "./header.scss";
+// Styles
+import "./headerSection.scss";
 
-export default function Header() {
+export default function HeaderSection() {
   const [theme, setTheme] = useState(localStorage.getItem("theme"));
 
   useEffect(() => {
