@@ -13,6 +13,8 @@ function newTodo(name: string, complete: boolean): TodoType {
 function reducer(todos: TodosListType, action: ReducerActionType) {
   const { type, payload } = action;
 
+  let sourceIndex;
+
   switch (type) {
     case ACTIONS_TYPE.ADD_TODO:
       return [newTodo(payload.name, payload.complete), ...todos];
@@ -30,6 +32,18 @@ function reducer(todos: TodosListType, action: ReducerActionType) {
 
     case ACTIONS_TYPE.CLEAR_COMPLETED_TODOS:
       return todos.filter((todo) => !todo.complete);
+
+    case ACTIONS_TYPE.MOVE_TODO:
+      sourceIndex = todos.findIndex((todo) => todo.id === payload.id);
+
+      if (sourceIndex !== -1) {
+        const updatedTodos = [...todos];
+        const [movedTodo] = updatedTodos.splice(sourceIndex, 1);
+
+        updatedTodos.splice(payload.newIndex, 0, movedTodo);
+        return updatedTodos;
+      }
+      return todos;
 
     default:
       return todos;

@@ -3,6 +3,7 @@ export const ACTIONS_TYPE = {
   TOGGLE_TODO: "toggle-todo",
   DELETE_TODO: "delete",
   CLEAR_COMPLETED_TODOS: "clear-completed",
+  MOVE_TODO: "move-todo",
 };
 
 export type ReducerActionType = {

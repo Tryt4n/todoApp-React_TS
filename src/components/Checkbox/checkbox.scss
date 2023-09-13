@@ -12,7 +12,6 @@
   flex-shrink: 0;
   isolation: isolate;
   z-index: 0;
-  transition: v.$main-transition;
 
   &::before {
     position: absolute;

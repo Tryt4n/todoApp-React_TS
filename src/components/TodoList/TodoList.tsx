@@ -1,101 +1,57 @@
 // Hooks
+import { useState } from "react";
 import { useTodos } from "../../hooks/useTodos";
-// import React, { ReactElement, useId, useState } from "react";
-// import { ReactSortable } from "react-sortablejs";
 
 // Components
 import Todo from "../Todo/Todo";
 
 // Types
-// import { TodoType, TodosListType } from "../../types/Todos";
 import { TodoType } from "../../types/TodosTypes";
+import { ACTIONS_TYPE } from "../../types/ActionsTypes";
 
 // Styles
 import "./todoList.scss";
 
-// interface ItemType {
-//   id: string;
-//   component: ReactElement;
-// }
-
 export default function TodoList() {
-  const { todos } = useTodos();
-  // const id = useId();
-  // const [state, setState] = useState<ItemType[]>([
-  //   {
-  //     id: `list-item-${id}`,
-  //     component: <Todo text={crypto.randomUUID()} />,
-  //   },
-  //   {
-  //     id: `list-item-${id}`,
-  //     component: <Todo text={crypto.randomUUID()} />,
-  //   },
-  //   // {
-  //   //   id: `list-item-${id}`,
-  //   //   component: <Todo text={crypto.randomUUID()} />,
-  //   // },
-  //   // {
-  //   //   id: `list-item-${id}`,
-  //   //   component: <Todo text={crypto.randomUUID()} />,
-  //   // },
-  //   // {
-  //   //   id: `list-item-${id}`,
-  //   //   component: <Todo text={crypto.randomUUID()} />,
-  //   // },
-  //   // {
-  //   //   id: `list-item-${id}`,
-  //   //   component: <Todo text={crypto.randomUUID()} />,
-  //   // },
-  //   // {
-  //   //   id: `list-item-${id}`,
-  //   //   component: <Todo text={crypto.randomUUID()} />,
-  //   // },
-  //   // {
-  //   //   id: `list-item-${id}`,
-  //   //   component: <Todo text={crypto.randomUUID()} />,
-  //   // },
-  //   // {
-  //   //   id: `list-item-${id}`,
-  //   //   component: <Todo text={crypto.randomUUID()} />,
-  //   // },
-  //   // {
-  //   //   id: `list-item-${id}`,
-  //   //   component: <Todo text={crypto.randomUUID()} />,
-  //   // },
-  //   // {
-  //   //   id: `list-item-${id}`,
-  //   //   component: <Todo text={crypto.randomUUID()} />,
-  //   // },
-  //   // {
-  //   //   id: `list-item-${id}`,
-  //   //   component: <Todo text={crypto.randomUUID()} />,
-  //   // },
-  //   // {
-  //   //   id: `list-item-${id}`,
-  //   //   component: <Todo text={crypto.randomUUID()} />,
-  //   // },
-  // ]);
+  const { todos, dispatch } = useTodos();
+
+  const [dragOverIndex, setDragOverIndex] = useState(-1);
+
+  function handleDrop(e: React.DragEvent<HTMLUListElement>) {
+    e.preventDefault();
+    const draggedItemId = parseInt(e.dataTransfer.getData("text/plain"), 10);
+
+    const mouseY = e.clientY;
+    const todoList = e.currentTarget;
+    const rect = todoList.getBoundingClientRect();
+    const mouseYRelativeToTodoList = mouseY - rect.top;
+
+    const newIndex = Math.floor(mouseYRelativeToTodoList / (rect.height / todos.length));
+
+    dispatch({
+      type: ACTIONS_TYPE.MOVE_TODO,
+      payload: {
+        id: draggedItemId,
+        newIndex: newIndex,
+      },
+    });
+  }
 
   return (
     <div className="todo-list-wrapper">
-      {/* <ReactSortable
-        tag="ul"
+      <ul
         className="task-wrapper todo-list"
-        list={state}
-        setList={setState}
-      > */}
-      {/* {state.map((item) => (
-          <React.Fragment key={item.component.props.text}>{item.component}</React.Fragment>
-        ))} */}
-      <ul className="task-wrapper todo-list">
+        onDrop={handleDrop}
+      >
         {todos.map((todo: TodoType) => (
           <Todo
             key={todo.id}
             todo={todo}
-          ></Todo>
+            dragOverIndex={dragOverIndex}
+            setDragOverIndex={setDragOverIndex}
+          />
         ))}
       </ul>
-      {/* </ReactSortable> */}
     </div>
   );
 }

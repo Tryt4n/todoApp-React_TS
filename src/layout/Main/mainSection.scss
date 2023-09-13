@@ -12,7 +12,6 @@
     background-color: inherit;
     color: var(--text-task-color);
     caret-color: c.$bright-blue;
-    transition: v.$main-transition;
 
     &::placeholder {
       color: var(--text-task-complete-color);
