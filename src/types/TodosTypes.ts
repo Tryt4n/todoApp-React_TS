@@ -4,5 +4,4 @@ export type TodoType = {
   complete: boolean;
 };
 
-// export type TodosListType = TodoType[] | [];
 export type TodosListType = TodoType[];

@@ -3,13 +3,17 @@ import { useId } from "react";
 import { useTodos } from "../../hooks/useTodos";
 
 // Types
-import { TodoPropType } from "../../types/TodosTypes";
+import { TodoType } from "../../types/TodosTypes";
 import { ACTIONS_TYPE } from "../../types/ActionsTypes";
 
 // Styles
 import "./checkbox.scss";
 
-export default function Checkbox({ todo }: TodoPropType) {
+type CheckboxPropsType = {
+  todo: TodoType;
+};
+
+export default function Checkbox({ todo }: CheckboxPropsType) {
   const { dispatch } = useTodos();
   const id = useId();
 
