@@ -9,19 +9,8 @@
   font-weight: bold;
   color: var(--link-default);
 
-  & a {
-    color: inherit;
-    line-height: 1;
-    transition: v.$main-transition;
-
-    &:where(:hover, :focus-visible) {
-      color: var(--link-hover);
-    }
-  }
-
   & .active {
     color: c.$bright-blue;
-    cursor: default;
   }
 
   @media screen and (width <= b.$mobile) {

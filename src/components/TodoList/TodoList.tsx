@@ -1,5 +1,6 @@
 // Hooks
 import { useState } from "react";
+// import { useState } from "react";
 import { useTodos } from "../../hooks/useTodos";
 
 // Components
@@ -13,7 +14,7 @@ import { ACTIONS_TYPE } from "../../types/ActionsTypes";
 import "./todoList.scss";
 
 export default function TodoList() {
-  const { todos, dispatch } = useTodos();
+  const { todos, dispatch, filteredTodos } = useTodos();
 
   const [dragOverIndex, setDragOverIndex] = useState(-1);
 
@@ -43,7 +44,7 @@ export default function TodoList() {
         className="task-wrapper todo-list"
         onDrop={handleDrop}
       >
-        {todos.map((todo: TodoType) => (
+        {filteredTodos.map((todo: TodoType) => (
           <Todo
             key={todo.id}
             todo={todo}

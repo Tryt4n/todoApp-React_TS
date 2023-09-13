@@ -65,14 +65,13 @@ button {
   font: inherit;
   color: inherit;
   cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 }
 
 button,
-input,
-a {
+input {
   outline-offset: 0.25em;
-}
-
-a {
-  text-decoration: none;
 }

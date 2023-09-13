@@ -1,5 +1,5 @@
 // Hooks
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { useTodos } from "../../hooks/useTodos.js";
 import useWindowSize from "../../hooks/useWindowSize.js";
 
@@ -14,12 +14,15 @@ import { ACTIONS_TYPE } from "../../types/ActionsTypes.js";
 import "./mainSection.scss";
 
 export default function MainSection() {
-  const { todos, dispatch } = useTodos();
+  const { todos, dispatch, displayedTodos } = useTodos();
 
   const { width } = useWindowSize();
 
   const inputRef = useRef<HTMLInputElement>(null!);
   const newTodoCheckboxRef = useRef<HTMLInputElement>(null!);
+
+  const completedTodos = todos.filter((todo) => todo.complete);
+  const numberOfTodosLeft = todos.length - completedTodos.length;
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -32,10 +35,6 @@ export default function MainSection() {
     inputRef.current.value = "";
     newTodoCheckboxRef.current.checked = false;
   }
-
-  useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos));
-  }, [todos]);
 
   return (
     <main className="container">
@@ -88,16 +87,18 @@ export default function MainSection() {
 
       <section className="task-wrapper list-summary">
         <span>
-          {todos.length} {todos.length === 1 ? "item" : "items"} left
+          {numberOfTodosLeft} {numberOfTodosLeft === 1 ? "item" : "items"} left
         </span>
         {width > 768 && <NavigationBar />}
         <button
           type="button"
-          onClick={() =>
+          disabled={displayedTodos === "active"}
+          onClick={() => {
+            if (displayedTodos === "active") return;
             dispatch({
               type: ACTIONS_TYPE.CLEAR_COMPLETED_TODOS,
-            })
-          }
+            });
+          }}
         >
           Clear Completed
         </button>

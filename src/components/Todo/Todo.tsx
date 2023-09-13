@@ -23,28 +23,26 @@ export default function Todo({ todo, dragOverIndex, setDragOverIndex }: TodoProp
 
   function handleDragStart(e: React.DragEvent<HTMLLIElement>) {
     e.dataTransfer.setData("text/plain", todo.id.toString());
-    e.currentTarget.classList.remove("drag-over");
   }
 
   function handleDragOver(e: React.DragEvent<HTMLLIElement>) {
     e.preventDefault();
     setDragOverIndex(todo.id);
-    // e.currentTarget.classList.add("drag-over");
+    e.currentTarget.classList.add("drag-over");
   }
 
   function handleDragLeave() {
     setDragOverIndex(-1);
-    // e.currentTarget.classList.remove("drag-over");
   }
 
   return (
     <li
-      // className="todo-wrapper"
       className={`todo-wrapper${dragOverIndex === todo.id ? " drag-over" : ""}`}
       draggable
       onDragStart={handleDragStart}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
+      onDrop={(e) => e.currentTarget.classList.remove("drag-over")}
     >
       <Checkbox todo={todo} />
       <button

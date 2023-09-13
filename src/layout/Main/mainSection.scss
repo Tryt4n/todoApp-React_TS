@@ -69,7 +69,7 @@
     transition: v.$main-transition;
   }
 
-  & button:where(:hover, :focus-visible) {
+  & button:not(:disabled):where(:hover, :focus-visible) {
     color: var(--btn-light-hover);
   }
 }
