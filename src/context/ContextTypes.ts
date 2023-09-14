@@ -4,12 +4,11 @@ import { ReducerActionType } from "../types/ActionsTypes";
 
 export type ChildrenType = { children?: ReactElement | ReactElement[] };
 
-export type DisplayedTodos = "all" | "active" | "completed";
+export type DisplayedTodosOptions = "all" | "active" | "completed";
 
 export type TodosContextType = {
   todos: TodosListType;
   dispatch: React.Dispatch<ReducerActionType>;
-  displayedTodos: DisplayedTodos;
-  setDisplayedTodos: React.Dispatch<React.SetStateAction<DisplayedTodos>>;
-  filteredTodos: TodosListType;
+  displayedTodosOption: DisplayedTodosOptions;
+  setDisplayedTodosOption: React.Dispatch<React.SetStateAction<DisplayedTodosOptions>>;
 };

@@ -2,13 +2,13 @@
 import { useTodos } from "../../hooks/useTodos";
 
 // Types
-import { DisplayedTodos } from "../../context/ContextTypes";
+import { DisplayedTodosOptions } from "../../context/ContextTypes";
 
 // Styles
 import "./navigationBar.scss";
 
 export default function NavigationBar() {
-  const { displayedTodos, setDisplayedTodos } = useTodos();
+  const { displayedTodosOption, setDisplayedTodosOption } = useTodos();
 
   const buttons = [
     { label: "All", value: "all" },
@@ -21,9 +21,9 @@ export default function NavigationBar() {
       {buttons.map((button) => (
         <button
           key={button.value}
-          disabled={displayedTodos === button.value}
-          className={displayedTodos === button.value ? "active" : ""}
-          onClick={() => setDisplayedTodos(button.value as DisplayedTodos)}
+          disabled={displayedTodosOption === button.value}
+          className={displayedTodosOption === button.value ? "active" : ""}
+          onClick={() => setDisplayedTodosOption(button.value as DisplayedTodosOptions)}
         >
           {button.label}
         </button>

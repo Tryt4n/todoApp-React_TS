@@ -14,35 +14,17 @@ import "./todo.scss";
 
 type TodoPropsType = {
   todo: TodoType;
-  dragOverIndex: number;
-  setDragOverIndex: React.Dispatch<React.SetStateAction<number>>;
+  onDragFunction: () => void;
 };
 
-export default function Todo({ todo, dragOverIndex, setDragOverIndex }: TodoPropsType) {
+export default function Todo({ todo, onDragFunction }: TodoPropsType) {
   const { dispatch } = useTodos();
-
-  function handleDragStart(e: React.DragEvent<HTMLLIElement>) {
-    e.dataTransfer.setData("text/plain", todo.id.toString());
-  }
-
-  function handleDragOver(e: React.DragEvent<HTMLLIElement>) {
-    e.preventDefault();
-    setDragOverIndex(todo.id);
-    e.currentTarget.classList.add("drag-over");
-  }
-
-  function handleDragLeave() {
-    setDragOverIndex(-1);
-  }
 
   return (
     <li
-      className={`todo-wrapper${dragOverIndex === todo.id ? " drag-over" : ""}`}
+      className="todo-wrapper"
       draggable
-      onDragStart={handleDragStart}
-      onDragOver={handleDragOver}
-      onDragLeave={handleDragLeave}
-      onDrop={(e) => e.currentTarget.classList.remove("drag-over")}
+      onDragEnd={onDragFunction}
     >
       <Checkbox todo={todo} />
       <button

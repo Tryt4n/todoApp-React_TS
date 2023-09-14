@@ -1,58 +1,91 @@
 // Hooks
-import { useState } from "react";
-// import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useTodos } from "../../hooks/useTodos";
 
 // Components
+import { ReactSortable } from "react-sortablejs";
 import Todo from "../Todo/Todo";
 
 // Types
-import { TodoType } from "../../types/TodosTypes";
-import { ACTIONS_TYPE } from "../../types/ActionsTypes";
+import { TodoType, TodosListType } from "../../types/TodosTypes";
 
 // Styles
 import "./todoList.scss";
 
 export default function TodoList() {
-  const { todos, dispatch, filteredTodos } = useTodos();
+  const { todos, displayedTodosOption } = useTodos();
+  const [displayedTodoList, setDisplayedTodoList] = useState(todos);
 
-  const [dragOverIndex, setDragOverIndex] = useState(-1);
+  const LOCAL_STORAGE_KEYS = {
+    ALL_TODOS: "todos",
+    ACTIVE_TODOS: "activeTodos",
+    COMPLETED_TODOS: "completedTodos",
+  };
 
-  function handleDrop(e: React.DragEvent<HTMLUListElement>) {
-    e.preventDefault();
-    const draggedItemId = parseInt(e.dataTransfer.getData("text/plain"), 10);
+  const localStorageData = {
+    allTodosData: localStorage.getItem(LOCAL_STORAGE_KEYS.ALL_TODOS),
+    activeTodosData: localStorage.getItem(LOCAL_STORAGE_KEYS.ACTIVE_TODOS),
+    completedTodosData: localStorage.getItem(LOCAL_STORAGE_KEYS.COMPLETED_TODOS),
+  };
 
-    const mouseY = e.clientY;
-    const todoList = e.currentTarget;
-    const rect = todoList.getBoundingClientRect();
-    const mouseYRelativeToTodoList = mouseY - rect.top;
+  const getAllTodos = useMemo(
+    () => (localStorageData.allTodosData ? JSON.parse(localStorageData.allTodosData) : []),
+    [localStorageData.allTodosData]
+  );
+  const getActiveTodos = useMemo(
+    () => (localStorageData.activeTodosData ? JSON.parse(localStorageData.activeTodosData) : []),
+    [localStorageData.activeTodosData]
+  );
+  const getCompletedTodos = useMemo(
+    () =>
+      localStorageData.completedTodosData ? JSON.parse(localStorageData.completedTodosData) : [],
+    [localStorageData.completedTodosData]
+  );
 
-    const newIndex = Math.floor(mouseYRelativeToTodoList / (rect.height / todos.length));
+  useEffect(() => {
+    let newDisplayedTodoList: TodosListType = [];
 
-    dispatch({
-      type: ACTIONS_TYPE.MOVE_TODO,
-      payload: {
-        id: draggedItemId,
-        newIndex: newIndex,
-      },
-    });
+    if (displayedTodosOption === "all") {
+      newDisplayedTodoList = getAllTodos;
+    } else if (displayedTodosOption === "active") {
+      newDisplayedTodoList = getActiveTodos;
+    } else if (displayedTodosOption === "completed") {
+      newDisplayedTodoList = getCompletedTodos;
+    }
+
+    setDisplayedTodoList(newDisplayedTodoList);
+  }, [displayedTodosOption, getAllTodos, getActiveTodos, getCompletedTodos]);
+
+  useEffect(() => {
+    setDisplayedTodoList(todos);
+  }, [todos]);
+
+  function updateLocalStorage() {
+    if (displayedTodosOption === "all") {
+      localStorage.setItem("todos", JSON.stringify(displayedTodoList));
+    } else if (displayedTodosOption === "active") {
+      localStorage.setItem("activeTodos", JSON.stringify(displayedTodoList));
+    } else if (displayedTodosOption === "completed") {
+      localStorage.setItem("completedTodos", JSON.stringify(displayedTodoList));
+    }
   }
 
   return (
     <div className="todo-list-wrapper">
-      <ul
+      <ReactSortable
+        tag="ul"
         className="task-wrapper todo-list"
-        onDrop={handleDrop}
+        list={displayedTodoList}
+        setList={setDisplayedTodoList}
       >
-        {filteredTodos.map((todo: TodoType) => (
+        {displayedTodoList.map((todo: TodoType) => (
           <Todo
             key={todo.id}
             todo={todo}
-            dragOverIndex={dragOverIndex}
-            setDragOverIndex={setDragOverIndex}
+            onDragFunction={updateLocalStorage}
           />
         ))}
-      </ul>
+      </ReactSortable>
     </div>
   );
 }

@@ -14,7 +14,7 @@ import { ACTIONS_TYPE } from "../../types/ActionsTypes.js";
 import "./mainSection.scss";
 
 export default function MainSection() {
-  const { todos, dispatch, displayedTodos } = useTodos();
+  const { todos, dispatch, displayedTodosOption } = useTodos();
 
   const { width } = useWindowSize();
 
@@ -86,15 +86,16 @@ export default function MainSection() {
       </form>
 
       <section className="task-wrapper list-summary">
+        <h2 className="visually-hidden">Summary</h2>
         <span>
           {numberOfTodosLeft} {numberOfTodosLeft === 1 ? "item" : "items"} left
         </span>
         {width > 768 && <NavigationBar />}
         <button
           type="button"
-          disabled={displayedTodos === "active"}
+          disabled={displayedTodosOption === "active"}
           onClick={() => {
-            if (displayedTodos === "active") return;
+            if (displayedTodosOption === "active") return;
             dispatch({
               type: ACTIONS_TYPE.CLEAR_COMPLETED_TODOS,
             });

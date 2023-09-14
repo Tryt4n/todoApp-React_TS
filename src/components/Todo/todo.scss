@@ -45,12 +45,6 @@
   }
 }
 
-.drag-over {
-  & > * {
-    opacity: 0.25;
-  }
-}
-
 @keyframes showNewTodo {
   from {
     visibility: visible;

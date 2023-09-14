@@ -8,17 +8,19 @@ import IconSun from "../../Icons/IconSun";
 // Styles
 import "./headerSection.scss";
 
+const LOCAL_STORAGE_THEME_KEY = "theme";
+
 export default function HeaderSection() {
-  const [theme, setTheme] = useState(localStorage.getItem("theme"));
+  const [theme, setTheme] = useState(localStorage.getItem(LOCAL_STORAGE_THEME_KEY));
 
   useEffect(() => {
     const prefferedTheme = window.matchMedia("(prefers-color-scheme: light)").matches
       ? "light"
       : "dark";
-    const storedTheme = localStorage.getItem("theme");
+    const storedTheme = localStorage.getItem(LOCAL_STORAGE_THEME_KEY);
 
     if (!storedTheme) {
-      localStorage.setItem("theme", prefferedTheme);
+      localStorage.setItem(LOCAL_STORAGE_THEME_KEY, prefferedTheme);
     } else {
       setTheme(storedTheme);
     }
@@ -29,7 +31,7 @@ export default function HeaderSection() {
 
   function toggleTheme() {
     const newTheme = theme === "light" ? "dark" : "light";
-    localStorage.setItem("theme", newTheme);
+    localStorage.setItem(LOCAL_STORAGE_THEME_KEY, newTheme);
     setTheme(newTheme);
   }
 

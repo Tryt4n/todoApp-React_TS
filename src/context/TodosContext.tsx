@@ -2,7 +2,7 @@
 import { ReactElement, createContext, useEffect, useReducer, useState } from "react";
 
 // Types
-import { ChildrenType, DisplayedTodos, TodosContextType } from "./ContextTypes";
+import { ChildrenType, DisplayedTodosOptions, TodosContextType } from "./ContextTypes";
 import { ACTIONS_TYPE, ReducerActionType } from "../types/ActionsTypes";
 import { TodoType, TodosListType } from "../types/TodosTypes";
 
@@ -12,8 +12,7 @@ function newTodo(name: string, complete: boolean): TodoType {
 
 function reducer(todos: TodosListType, action: ReducerActionType) {
   const { type, payload } = action;
-
-  let sourceIndex;
+  const getTodos: TodosListType = getInitialTodos();
 
   switch (type) {
     case ACTIONS_TYPE.ADD_TODO:
@@ -21,7 +20,7 @@ function reducer(todos: TodosListType, action: ReducerActionType) {
       return [newTodo(payload.name, payload.complete), ...todos];
 
     case ACTIONS_TYPE.TOGGLE_TODO:
-      return todos.map((todo) => {
+      return getTodos.map((todo) => {
         if (todo.id === payload.id) {
           return { ...todo, complete: !todo.complete };
         }
@@ -34,18 +33,6 @@ function reducer(todos: TodosListType, action: ReducerActionType) {
     case ACTIONS_TYPE.CLEAR_COMPLETED_TODOS:
       return todos.filter((todo) => !todo.complete);
 
-    case ACTIONS_TYPE.MOVE_TODO:
-      sourceIndex = todos.findIndex((todo) => todo.id === payload.id);
-
-      if (sourceIndex !== -1) {
-        const updatedTodos = [...todos];
-        const [movedTodo] = updatedTodos.splice(sourceIndex, 1);
-
-        updatedTodos.splice(payload.newIndex, 0, movedTodo);
-        return updatedTodos;
-      }
-      return todos;
-
     default:
       return todos;
   }
@@ -53,42 +40,34 @@ function reducer(todos: TodosListType, action: ReducerActionType) {
 
 const TodosContext = createContext<TodosContextType | undefined>(undefined);
 
+function getInitialTodos() {
+  const storedTodos = localStorage.getItem("todos");
+  return storedTodos ? JSON.parse(storedTodos) : [];
+}
+
 export function TodosProvider({ children }: ChildrenType): ReactElement {
-  const [todos, dispatch] = useReducer(reducer, [], () => {
-    const storedTodos = localStorage.getItem("todos");
-    return storedTodos ? JSON.parse(storedTodos) : [];
-  });
+  const [todos, dispatch] = useReducer(reducer, getInitialTodos());
 
-  const [displayedTodos, setDisplayedTodos] = useState<DisplayedTodos>("all");
+  const [displayedTodosOption, setDisplayedTodosOption] = useState<DisplayedTodosOptions>("all");
 
-  const filteredTodos = todos.filter((todo) => {
-    if (displayedTodos === "all") {
-      return true;
-    } else if (displayedTodos === "active") {
-      return !todo.complete;
-    } else if (displayedTodos === "completed") {
-      return todo.complete;
-    }
-    return true;
-  });
+  const activeTodos = todos.filter((todo) => !todo.complete);
+  const completedTodos = todos.filter((todo) => todo.complete);
 
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
+    localStorage.setItem("activeTodos", JSON.stringify(activeTodos));
+    localStorage.setItem("completedTodos", JSON.stringify(completedTodos));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [todos]);
 
-  return (
-    <TodosContext.Provider
-      value={{
-        todos: todos,
-        dispatch: dispatch,
-        displayedTodos: displayedTodos,
-        setDisplayedTodos: setDisplayedTodos,
-        filteredTodos: filteredTodos,
-      }}
-    >
-      {children}
-    </TodosContext.Provider>
-  );
+  const contextValue: TodosContextType = {
+    todos,
+    dispatch,
+    displayedTodosOption,
+    setDisplayedTodosOption,
+  };
+
+  return <TodosContext.Provider value={contextValue}>{children}</TodosContext.Provider>;
 }
 
 export default TodosContext;
